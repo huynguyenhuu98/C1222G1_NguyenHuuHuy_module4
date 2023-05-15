@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Book</title>
+</head>
+<body>
+<h3>Detail book</h3>
+<div>
+    <label for="id">#</label>
+    <span th:text="${detail_book.id}" id="id"></span>
+    <label for="name">#</label>
+    <span th:text="${detail_book.name}" id="name"></span>
+    <label for="count">#</label>
+    <span th:text="${detail_book.count}" id="count"></span>
+</div>
+<div>
+    <form action="/books/borrow">
+        <input type="hidden" name="idBook" th:value="${detail_book.id}">
+        <button>Borrow</button>
+    </form>
+</div>
+</body>
+</html>
