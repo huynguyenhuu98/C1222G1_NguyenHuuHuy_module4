@@ -13,6 +13,15 @@
 <h3 style="text-align: center">MANAGER BLOG</h3>
 <button><a th:href="@{/blogs/create-form}">Create new blog</a></button>
 <button><a th:href="@{/blogs}">Back to blog list</a></button>
+<form th:action="@{/list-by-category}" id="submit" method="get">
+        <label for="form-cate">Category</label>
+        <select name="idSearch" class="custom-select" id="form-cate"
+                onchange="document.getElementById('submit').submit()">
+            <option selected>Select one</option>
+            <option th:each="category: ${categories}" th:text="${category.getName}"
+                    th:value="${category.getId()}" th:selected="${category.getId()}"></option>
+        </select>
+</form>
 <p style="color: green" th:text="${mess}"></p>
 <table class="table table-inverse table-inverse">
     <thead class="thead-default">

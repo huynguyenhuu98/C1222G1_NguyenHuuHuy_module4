@@ -44,7 +44,6 @@ public class SongController {
         iSongService.create(song);
         redirectAttributes.addAttribute("msg", "Create successful");
         return "redirect:/song";
-
     }
 
     @GetMapping("/{id}/update")

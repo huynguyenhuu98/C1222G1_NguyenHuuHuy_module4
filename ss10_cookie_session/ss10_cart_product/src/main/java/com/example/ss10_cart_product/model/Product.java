@@ -1,6 +1,7 @@
 package com.example.ss10_cart_product.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "product")
@@ -11,6 +12,7 @@ public class Product {
     private String name;
     private double price;
     private String description;
+    private String thumbnailURL;
 
     public Product() {
     }
@@ -51,5 +53,26 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getThumbnailURL() {
+        return thumbnailURL;
+    }
+
+    public void setThumbnailURL(String thumbnailURL) {
+        this.thumbnailURL = thumbnailURL;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

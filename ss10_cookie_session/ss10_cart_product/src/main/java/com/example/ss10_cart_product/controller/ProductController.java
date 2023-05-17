@@ -9,14 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
 @SessionAttributes("cart")
-@RequestMapping("/product")
+//@RequestMapping("/product")
 public class ProductController {
     @Autowired
     private IProductService iProductService;
+
     @ModelAttribute("cart")
     public Cart setupCart() {
         return new Cart();
@@ -42,10 +44,21 @@ public class ProductController {
         cart.addProduct(productOptional.get());
         return "redirect:/shop";
     }
+
+    @GetMapping("/sub/{id}")
+    public String subToCart(@PathVariable Long id, @ModelAttribute Cart cart, @RequestParam("action") String action) {
+        Optional<Product> productOptional = iProductService.findById(id);
+        if (!productOptional.isPresent()) {
+            return "/error.404";
+        }
+        cart.subProduct(productOptional.get());
+        return "redirect:/shopping-cart";
+    }
+
     @GetMapping("/detail/{id}")
-    public String getPageViewProduct(@PathVariable("id") Long id, Model model){
-        Optional<Product> product = iProductService.findById(id);
-        model.addAttribute("product",product);
+    public String getPageViewProduct(@PathVariable("id") Long id, Model model) {
+        Optional<Product> productOptional = iProductService.findById(id);
+        model.addAttribute("product", productOptional.get());
         return "/detail";
     }
 }
