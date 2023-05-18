@@ -45,13 +45,12 @@ public class Cart {
         }
     }
     public void subProduct(Product product){
-        if (!checkItemInCart(product)) {
-        } else {
+        if (checkItemInCart(product)) {
             Map.Entry<Product, Integer> itemEntry = selectItemInCart(product);
             assert itemEntry != null;
-            if (itemEntry.getValue() == 1) {
-                products.remove(itemEntry.getKey());
-                return;
+            int value = itemEntry.getValue();
+            if (value == 1) {
+                products.remove(product);
             }
             Integer newQuantity = itemEntry.getValue() - 1;
             this.products.replace(itemEntry.getKey(), newQuantity);

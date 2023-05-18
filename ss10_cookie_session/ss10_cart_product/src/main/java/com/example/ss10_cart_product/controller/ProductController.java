@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     @GetMapping("/sub/{id}")
-    public String subToCart(@PathVariable Long id, @ModelAttribute Cart cart, @RequestParam("action") String action) {
+    public String subToCart(@PathVariable Long id, @ModelAttribute Cart cart) {
         Optional<Product> productOptional = iProductService.findById(id);
         if (!productOptional.isPresent()) {
             return "/error.404";
