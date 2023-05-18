@@ -22,22 +22,37 @@ public class BlogRestController {
 
     @GetMapping("/blogs")
     public ResponseEntity<List<Blog>> getBlogs() {
-        return new ResponseEntity<>(this.iBlogService.getAll(), HttpStatus.OK);
+        List<Blog> blogs = iBlogService.getAll();
+        if (blogs.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
+
     @GetMapping("/category")
     public ResponseEntity<List<Category>> getCategory() {
-        return new ResponseEntity<>(this.iCategoryService.findCategory(), HttpStatus.OK);
+        List<Category> categories = iCategoryService.findCategory();
+        if (categories.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+
     @GetMapping("/detail")
-    public ResponseEntity<Blog> getDetail(@RequestParam(value = "id") int id){
+    public ResponseEntity<Blog> getDetail(@RequestParam(value = "id") int id) {
         Blog blog = iBlogService.findById(id);
         if (blog == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(blog, HttpStatus.OK);
     }
+
     @GetMapping("/findListBlog/{name}")
-    public ResponseEntity<List<Blog>> listBlog(@PathVariable String name){
-        return new ResponseEntity<>(this.iBlogService.findByName(name), HttpStatus.OK);
+    public ResponseEntity<List<Blog>> findListBlog(@PathVariable String name) {
+        List<Blog> blogList = iBlogService.findByName(name);
+        if (blogList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 }
